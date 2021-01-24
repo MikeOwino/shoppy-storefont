@@ -1,0 +1,68 @@
+<div id='template' class='flex flex-1 flex-col bg-gray-100'>
+    {# Header #}
+    <div class='flex flex-col items-center justify-center accent-gradient w-full p-12 py-18'>
+        {# Avatar #}
+        <div class="flex relative items-center justify-center h-24 w-24">
+            <img class="rounded-full h-24 w-24 shadow-md" src="{{ shop.avatar }}">
+            <div class="flex absolute avatar-status h-5 w-5 rounded-full {% if shop.online.state %}bg-green-500{% else %}bg-red-500{% endif %}"></div>
+        </div>
+
+        {# Username #}
+        <div class="flex flex-1 justify-center text-xl mt-2">
+            <a class="no-underline text-white">{{ shop.username }}</a>
+        </div>
+    </div>
+
+    {# Feedbacks Progress Bar #}
+    <div class='flex flex-row'>
+        <div class='flex items-center justify-center bg-green-500 text-gray-200 text-white text-xs font-bold' style='width: {{ statistics.positive }}%; min-width: 120px;'>{{ statistics.positive }}% Positive</div>
+        <div class='flex flex-1 items-center justify-center py-1 text-xs font-bold text-gray-800 bg-gray-500' style='min-width: 120px;'>{{ statistics.neutral }}% Neutral</div>
+        <div class='flex items-center justify-center bg-red-500 text-gray-200 text-white text-xs font-bold' style='width: {{ statistics.negative }}%; min-width: 120px;'>{{ statistics.negative }}% Negative</div>
+    </div>
+
+    {# Feedbacks #}
+    <div class='flex flex-wrap items-center p-12 accent-gradient-darker'>
+        {% for feedback in shop.feedbacks %}
+            <div class='flex flex-col mt-4 w-full px-4 md:flex-1/3 flex-1/2 md:min-w-1/3 min-w-1/2'>
+                <div class='flex flex-col flex-1 rounded'>
+                    <div class='flex flex-row accent-gradient-dark rounded-t p-2 text-gray-400'>
+                        <div class='flex flex-row flex-1 items-center'>
+                            {% for i in range(0, 5) %}
+                                {% if i < feedback.stars %}
+                                    {% if feedback.rating == 1 %}
+                                        {# Positive Star #}
+                                        <i class='fa fa-star text-green-500'></i>
+                                    {% else %}
+                                        {# Negative Star #}
+                                        <i class='fa fa-star text-red-500'></i>
+                                    {% endif %}
+                                {% else %}
+                                    {# Empty Star #}
+                                    <i class='fa fa-star text-gray-500'></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class='flex flex-row items-center ml-auto text-xs'>
+                            <i class='fa fa-check mr-1'></i>
+                            <span>Verified Purchase</span>
+                        </div>
+                    </div>
+                    <div class='flex flex-col flex-1 accent-gradient p-2 rounded-b'>
+                        {% if feedback.comment == null or feedback.comment.length == 0 %}
+                            <span class='text-gray-800 italic'>no comment</span>
+                        {% else %}
+                            <span class='text-gray-400'>{{ feedback.comment }}</span>
+                        {% endif %}
+
+                        {% if feedback.response != null and feedback.response.length > 0 %}
+                            <div class='flex flex-col flex-1 border-l border-gray-500 pl-2 mt-3'>
+                                <span class="text-xs text-gray-600">Seller response:</span>
+                                <span class='text-gray-400'>{{ feedback.response }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
