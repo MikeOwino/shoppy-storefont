@@ -1,0 +1,28 @@
+.accent-gradient {
+    background: #15212a !important;
+}
+
+.accent-gradient-dark {
+    background: #121c23 !important;
+}
+
+.accent-gradient-darker {
+    background: #0f171d !important;
+}
+
+.accent-flavor {
+    background: #a4d037 !important;
+}
+
+.accent-flavor-dark {
+    background: #85a92c !important;
+}
+
+.accent-flavor-text {
+    color: #a4d037 !important;
+}
+
+.accent-flavor-border {
+    border-color: #a4d037 !important;
+}
+
