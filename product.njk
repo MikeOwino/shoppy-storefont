@@ -1,0 +1,19 @@
+<div id='template' class='flex flex-1 flex-col h-100 w-100'>
+    {# Product #}
+    <div id='product-wrapper' class='flex mt-12 flex-col md:flex-row px-12 justify-center'>
+        {# Product Header #}
+        <div id='product-header-wrapper' class="flex flex-col w-full md:w-full xl:w-2/4 mb-8 md:mb-0 mr-0 md:mr-8">
+            <div id='product-header' class='rounded-b shadow'>
+                <div id='product-title' class="flex flex-row accent-gradient-dark p-4 rounded-t">
+                    <span class='text-white truncate text-gray-300'>{{ product.title }}</span>
+                </div>
+                <div id='product-description' class="flex flex-col accent-gradient text-white rounded-b p-4">
+                    {{ product.description | safe }}
+                </div>
+            </div>
+        </div>
+
+        {# Product Container #}
+        <div id='product'></div>
+    </div>
+</div>
