@@ -1,0 +1,57 @@
+<div id='template' class='flex flex-1 flex-col bg-gray-100'>
+    {# Header #}
+    <div class='flex flex-col items-center justify-center accent-gradient w-full p-12 py-18'>
+        {# Avatar #}
+        <div class="flex relative items-center justify-center h-24 w-24">
+            <img class="rounded-full h-24 w-24 shadow-md" src="{{ shop.avatar }}">
+            <div class="flex absolute avatar-status h-5 w-5 rounded-full {% if shop.online.state %}accent-flavor-dark{% else %}bg-red-500{% endif %}"></div>
+        </div>
+
+        {# Username #}
+        <div class="flex flex-1 justify-center text-xl mt-2">
+            <a class="no-underline text-white">{{ shop.username }}</a>
+        </div>
+    </div>
+
+    {# Product Groups #}
+    <div class='flex flex-row w-full accent-gradient-dark'>
+        {% set group_view = group != undefined %}
+        <div class='flex flex-1 flex-row flex-wrap m-2'>
+            <div class='flex p-1 px-4 m-2 rounded shadow {% if not group_view %}accent-flavor-dark text-gray-300{% else %}bg-gray-700 text-gray-400{% endif %}'>
+                <a href='/'>All</a>
+            </div>
+            {% for grp in shop.groups %}
+                <div class='flex p-1 px-4 px-4 m-2 rounded shadow {% if group_view and group.id == grp.id %}accent-flavor-dark text-gray-300{% else %}accent-gradient-darker text-gray-400{% endif %}'>
+                    <a href='/group/{{ grp.id }}'>{{ grp.title }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {# Products #}
+    <div class='flex flex-1 px-6 accent-gradient-darker'>
+        <div class='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mt-8 w-full md:w-3/4 ml-auto mr-auto pb-12 justify-center'>
+            {% for product in shop.products %}
+                <a href='/product/{{ product.id }}'>
+                    <div class='flex flex-1 flex-col rounded shadow-md'>
+                        <div class='flex flex-1'>
+                            <div class='w-full h-32 image-cover-center product-image-{{ product.id }} justify-center items-center rounded-t'></div>
+                        </div>
+                        <div class='flex flex-1 p-4 justify-center accent-gradient-dark'>
+                            <span class='truncate text-center text-sm text-gray-300'>{{ product.title }}</span>
+                        </div>
+                        <div class='flex flex-1 p-2 text-center accent-flavor-darker rounded-b text-gray-300'>
+                            <div class='flex flex-1'>
+                                <span>{{ product.price | currency(product.currency) }}</span>
+                            </div>
+                            <div class='flex items-center justify-center'>
+                                <div class='h-3 w-3 border rounded-full mr-1 {% if product.infinite or product.stock > 0 %}accent-flavor-border{% else %}border-red-500{% endif %}'></div>
+                                <span>{{ product.stock | stock(product.infinite) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
